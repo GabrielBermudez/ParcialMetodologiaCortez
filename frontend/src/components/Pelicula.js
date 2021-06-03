@@ -19,7 +19,7 @@ class Pelicula extends Component {
 						<Card.Body>
 							<a href={`/detalle-pelicula/${this.props.id}`}><Card.Img variant="top" src={imagen} style={{width:"100px"}} /></a>
 					    	<Card.Title>{this.props.titulo}</Card.Title>
-					    	<Button src={`/detalle-pelicula/${this.props.id}`} variant="primary">Detalle</Button>
+					    	<Button href={`/detalle-pelicula/${this.props.id}`} variant="primary">Detalle</Button>
 					  	</Card.Body>
 					</Col>
 				</Row>

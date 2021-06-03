@@ -27,7 +27,7 @@ const moviesController = {
             .then(movie => {
                 console.log('---LISTO EL DETALLE');
                 console.log(movie.title);
-                res.render('moviesDetail.ejs', { movie });
+                res.json(movie);
             });
     },
     'new': (req, res) => {
@@ -76,6 +76,7 @@ const moviesController = {
     },
 
     create: function (req, res) {
+        console.log(req.body);
         console.log('------ENTRE A CREATE');
         console.log('Pelicula :' + req.body.title);
         console.log('Código de Género :' + req.body.genre_id);
@@ -91,7 +92,7 @@ const moviesController = {
             }
         )
             .then(() => {
-                return res.redirect('/movies')
+                return res.status(200).send('Movie create succesfully');
             })
             .catch(error => res.send(error))
     },
@@ -111,7 +112,7 @@ const moviesController = {
                 console.log('-----TITULO :' + Movie.title);
                 console.log('-----GENERO :' +  Movie.genre.name);
                 console.log('-----GENERO id :' +  Movie.genre.id);
-                return res.render(path.resolve(__dirname, '..', 'views', 'moviesEdit'), { Movie, allGenres, allActors })
+                return res.json(Movie)
             })
             .catch(error => res.send(error))
     },
@@ -131,7 +132,7 @@ const moviesController = {
                 where: { id: movieId }
             })
             .then(() => {
-                return res.redirect('/movies')
+                return res.status(200).send('Película updated succesfully.')
             })
             .catch(error => res.send(error))
     },
@@ -140,7 +141,7 @@ const moviesController = {
 
         db.movie.findByPk(movieId)
             .then(Movie => {
-                return res.render(path.resolve(__dirname, '..', 'views', 'moviesDelete'), { Movie })
+                return res.json(Movie)
             })
             .catch(error => res.send(error))
     },
@@ -149,7 +150,7 @@ const moviesController = {
         Movies
             .destroy({ where: { id: movieId }, force: true }) // force: true es para asegurar que se ejecute la acción
             .then(() => {
-                return res.redirect('/movies')
+                return res.status(200).send('Película delete succesfully.')
             })
             .catch(error => res.send(error))
     }
